@@ -1,22 +1,22 @@
 {
-  "name": "nx-react-monorepo-e2e",
+  "name": "todo-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/nx-react-monorepo-e2e/src",
+  "sourceRoot": "apps/todo-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/nx-react-monorepo-e2e/cypress.config.ts",
-        "devServerTarget": "nx-react-monorepo:serve:development",
+        "cypressConfig": "apps/todo-e2e/cypress.config.ts",
+        "devServerTarget": "todoo:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "nx-react-monorepo:serve:production"
+          "devServerTarget": "todo:serve:production"
         },
         "ci": {
-          "devServerTarget": "nx-react-monorepo:serve-static"
+          "devServerTarget": "todo:serve-static"
         }
       }
     },
@@ -24,10 +24,10 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/nx-react-monorepo-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/todo-e2e/**/*.{js,ts}"]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["nx-react-monorepo"]
+  "implicitDependencies": ["todo"]
 }

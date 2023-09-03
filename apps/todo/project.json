@@ -1,7 +1,7 @@
 {
-  "name": "nx-react-monorepo",
+  "name": "todo",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/nx-react-monorepo/src",
+  "sourceRoot": "apps/todo/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/nx-react-monorepo"
+        "outputPath": "dist/apps/todo"
       },
       "configurations": {
         "development": {
@@ -24,15 +24,15 @@
       "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "nx-react-monorepo:build"
+        "buildTarget": "todo:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "nx-react-monorepo:build:development",
+          "buildTarget": "todo:build:development",
           "hmr": true
         },
         "production": {
-          "buildTarget": "nx-react-monorepo:build:production",
+          "buildTarget": "todo:build:production",
           "hmr": false
         }
       }
@@ -41,14 +41,14 @@
       "executor": "@nx/vite:preview-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "nx-react-monorepo:build"
+        "buildTarget": "todo:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "nx-react-monorepo:build:development"
+          "buildTarget": "todo:build:development"
         },
         "production": {
-          "buildTarget": "nx-react-monorepo:build:production"
+          "buildTarget": "todo:build:production"
         }
       }
     },
@@ -57,20 +57,20 @@
       "outputs": ["{options.reportsDirectory}"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/apps/nx-react-monorepo"
+        "reportsDirectory": "../../coverage/apps/todo"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/nx-react-monorepo/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/todo/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "nx-react-monorepo:build"
+        "buildTarget": "todo:build"
       }
     }
   },

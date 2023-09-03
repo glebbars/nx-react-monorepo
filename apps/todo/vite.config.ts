@@ -4,10 +4,10 @@ import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
-  cacheDir: '../../node_modules/.vite/nx-react-monorepo',
+  cacheDir: '../../node_modules/.vite/todo',
 
   server: {
-    port: 4200,
+    port: 3600,
     host: 'localhost',
   },
 
