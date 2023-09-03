@@ -67,6 +67,12 @@
         "lintFilePatterns": ["apps/todo/**/*.{ts,tsx,js,jsx}"]
       }
     },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional"
+      }
+    },
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {

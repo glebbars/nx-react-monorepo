@@ -1,0 +1,43 @@
+name: PROD Workflow
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Lint source code
+      run: npx nx affected --target=lint --parallel=3 --base=last-release
+      timeout-minutes: 5
+
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Test source code
+#        run: npx nx affected --target=test --parallel=3 --base=last-release
+#        timeout-minutes: 5
+
+#  bump-libs:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Create .npmrc file
+#        run: node tools/scripts/createNpmrc.js
+#        timeout-minutes: 5
+#        env:
+#          NPM_TOKEN: ${{ secrets.NPM_TOKEN_AUTOMATION }}
+#
+#      - name: Bump versions and generate changelogs
+#        run: yarn nx affected --base=last-release --target=version --parallel=1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#        timeout-minutes: 10
+#
+#      - name: Tag last-release
+#        run: |
+#          git push --follow-tags
+#          git tag -f last-release
+#          git push origin last-release --force
