@@ -1,43 +1,50 @@
 name: PROD Workflow
 on:
-  pull_request:
+  push:
     branches:
-      - master
-    types:
-      - closed
+      - main
 jobs:
-  lint:
+  all:
+    name: All actions
     runs-on: ubuntu-latest
+    timeout-minutes: 1
+
     steps:
-    - name: Lint source code
-      run: npx nx affected --target=lint --parallel=3 --base=last-release
-      timeout-minutes: 5
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-#  test:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Test source code
-#        run: npx nx affected --target=test --parallel=3 --base=last-release
-#        timeout-minutes: 5
+      - name: Setup Git
+        run: |
+          git config user.name "glebbars"
+          git config user.email "glebars2004@gmail.com"
 
-#  bump-libs:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Create .npmrc file
-#        run: node tools/scripts/createNpmrc.js
-#        timeout-minutes: 5
-#        env:
-#          NPM_TOKEN: ${{ secrets.NPM_TOKEN_AUTOMATION }}
-#
-#      - name: Bump versions and generate changelogs
-#        run: yarn nx affected --base=last-release --target=version --parallel=1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-#        timeout-minutes: 10
-#
-#      - name: Tag last-release
-#        run: |
-#          git push --follow-tags
-#          git tag -f last-release
-#          git push origin last-release --force
+      - name: Setup npm
+        run: npm install
+        timeout-minutes: 5
+
+      - name: Lint source code
+        run: npx nx affected --target=lint --parallel=3
+        timeout-minutes: 5
+
+      - name: Test source code
+        run: npx nx affected --target=test --parallel=3
+        timeout-minutes: 5
+
+      - name: Bump versions and generate changelogs
+        run: npx nx affected --target=version --parallel=1
+        timeout-minutes: 10
+
+      - name: Generate .npmrc file
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" > .npmrc
+
+      - name: Publishing packages
+        run: npx nx affected --target=release
+        timeout-minutes: 10
+
+      - name: Tag last-release
+        run: |
+          git push --follow-tags
+          git tag -f last-release
+          git push origin last-release --force
