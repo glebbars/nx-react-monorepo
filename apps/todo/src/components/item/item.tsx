@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ITodo } from '@nx-react-monorepo/data-access';
-import { Paragraph, Title } from '@nx-react-monorepo/common-ui';
+import { Paragraph, Title } from '@glebbars/common-ui';
 
 interface ItemProps {
   item: ITodo;

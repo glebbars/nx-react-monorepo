@@ -1,4 +1,4 @@
-import { CommonUi } from '@nx-react-monorepo/common-ui';
+import { CommonUi } from '@glebbars/common-ui';
 import { ITodo } from '@nx-react-monorepo/data-access';
 import { Item } from './components/item/item';
 
