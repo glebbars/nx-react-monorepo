@@ -32,7 +32,10 @@ jobs:
         timeout-minutes: 5
 
       - name: Bump versions and generate changelogs
-        run: npx nx affected --target=version --parallel=1 --base=last-release
+        run: |
+          git tag
+          git ls-remote --tags origin
+          npx nx affected --target=version --parallel=1 --base=last-release
         timeout-minutes: 10
 
       - name: Generate .npmrc file
